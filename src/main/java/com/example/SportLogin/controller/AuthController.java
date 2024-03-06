@@ -4,23 +4,16 @@ import com.example.SportLogin.dto.LoginDto;
 import com.example.SportLogin.exception.TokenRefreshException;
 import com.example.SportLogin.model.*;
 import com.example.SportLogin.dto.*;
-import com.example.SportLogin.model.*;
 import com.example.SportLogin.repository.*;
 import com.example.SportLogin.security.JwtTokenProvider;
 import com.example.SportLogin.service.*;
 import lombok.AllArgsConstructor;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
 
 @AllArgsConstructor
 @RestController
