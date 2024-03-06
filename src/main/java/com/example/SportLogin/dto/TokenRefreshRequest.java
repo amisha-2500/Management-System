@@ -1,4 +1,5 @@
 package com.example.SportLogin.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtAuthResponse {
-    private String accessToken;
+public class TokenRefreshRequest {
     private String refreshToken;
-    private String tokenType = "Bearer";
 
 }

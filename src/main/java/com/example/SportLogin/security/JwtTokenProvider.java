@@ -25,14 +25,15 @@ public class JwtTokenProvider {
     private String jwtSecret = "daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb";
     public static final long jwtExpirationDate = 5*60*60*1000;
 
+    Date currentDate = new Date();
+
+    Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
+
     // generate JWT token
     public String generateToken(Authentication authentication){
 
         String username = authentication.getName();
 
-        Date currentDate = new Date();
-
-        Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
         String token = Jwts.builder()
                 .subject(username)
@@ -60,6 +61,16 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
+
+    public String generateTokenFromUsername(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(expireDate)
+                .signWith(key())
+                .compact();
+    }
+
     // validate JWT token
     public boolean validateToken(String token){
         try{
@@ -85,4 +96,3 @@ public class JwtTokenProvider {
     }
 
 }
-

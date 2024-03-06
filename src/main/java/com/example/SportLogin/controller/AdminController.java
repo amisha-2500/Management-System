@@ -11,12 +11,14 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public ResponseEntity<String> helloAdmin(){
+
         return ResponseEntity.ok("Hello Admin");
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/user")
     public ResponseEntity<String> helloUser(){
+
         return ResponseEntity.ok("Hello User");
     }
 }

@@ -8,4 +8,5 @@ import java.util.Map;
 @Service
 public interface AuthService {
     String login(LoginDto loginDto);
+
 }
