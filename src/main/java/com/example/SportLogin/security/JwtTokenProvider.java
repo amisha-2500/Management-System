@@ -1,20 +1,22 @@
 package com.example.SportLogin.security;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.*;
+import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -33,7 +35,6 @@ public class JwtTokenProvider {
     public String generateToken(Authentication authentication){
 
         String username = authentication.getName();
-
 
         String token = Jwts.builder()
                 .subject(username)
@@ -70,6 +71,17 @@ public class JwtTokenProvider {
                 .signWith(key())
                 .compact();
     }
+
+    // get roles from JWT token
+//    public List<String> getRoles(String token) {
+//        Claims claims = Jwts.parser()
+//                .verifyWith((SecretKey) key())
+//                .build()
+//                .parseClaimsJws(token)
+//                .getBody();
+//
+//        return (List<String>) claims.get("roles");
+//    }
 
     // validate JWT token
     public boolean validateToken(String token){
