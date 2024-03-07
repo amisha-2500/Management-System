@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -22,7 +24,6 @@ public class AuthController {
 
     private AuthService authService;
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private RefreshTokenService refreshTokenService;
     private JwtTokenProvider jwtTokenProvider;
@@ -45,8 +46,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
 
-        // add check for username exists in a DB
-
+        // add check for username exists in a DBommi
         if (userRepository.existsByUsername(signUpDto.getUsername())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
@@ -62,9 +62,7 @@ public class AuthController {
         user.setUsername(signUpDto.getUsername());
         user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
-
-        Role roles = roleRepository.findByName("ROLE_USER");
-        user.setRoles(Collections.singleton(roles));
+        user.setRole(Role.USER);
 
         userRepository.save(user);
 
